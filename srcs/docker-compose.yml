@@ -1,0 +1,28 @@
+version: '3'
+services:
+  mariadb:
+    build: ../mariadb
+      # context:  /Users/abayar/Desktop/MyFolder/inception/srcs/requirements/wordpress
+      # image: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: examplepassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    volumes:
+      - mariadb_data:/var/lib/mysql
+  wordpress:
+    build: .
+      # context: .
+      # image: Dockerfile
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    ports:
+      - "80:80"
+    depends_on:
+      - mariab
+volumes:
+  mariadb_data:
