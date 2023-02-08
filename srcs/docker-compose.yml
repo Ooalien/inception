@@ -1,44 +1,38 @@
 version: "3.5"
 
-networks:
-        localhost:
-                name: inet
-
 services:
         mariadb:
                 container_name: "mariadb"
                 build: ./requirements/mariadb/
-                volumes:
-                        -  volume-mariadb:/var/lib/mysql/
+                
                 restart: unless-stopped
-                networks:
-                        - localhost
+                # networks:
+                #         - localhost
                 env_file:
                         - .env
                 ports:
                         - "3306:3306"
+                                                                                                                              # volumes:
+                                                                                                                              #         -  volume-mariadb:/var/lib/mysql/
         nginx:
-             
                 container_name: nginx
 
                 build: ./requirements/nginx
-                image: nginx
-                volumes:
-                        - volume-wordpress:/var/www/wordpress/
+                
+                # volumes:
+                #         - volume-wordpress:/var/www/wordpress/
                 ports:
                         - "443:443"
-                networks:
-                        - localhost
+                # networks:
+                #         - localhost
                 restart: unless-stopped
 
         wordpress:
                 container_name: "wordpress"
                 build: ./requirements/wordpress/
-                volumes:
-                        - volume-wordpress:/var/www/wordpress/
                 restart: unless-stopped
-                networks:
-                        - localhost
+                # networks:
+                #         - localhost
                 ports:
                         - "9000:9000"
                 depends_on:
@@ -48,6 +42,8 @@ services:
 
                         
     
+                # volumes:
+                #         - volume-wordpress:/var/www/wordpress/
 # volumes:
 #   volume-mariadb:
 #     driver: local
@@ -61,3 +57,6 @@ services:
 #       type: 'none'
 #       o: 'bind'
 #       device:  /home/abayar/data/wordpress
+# networks:
+#         localhost:
+#                 name: inet
