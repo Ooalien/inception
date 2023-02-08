@@ -1,28 +1,63 @@
-version: '3'
+version: "3.5"
+
+networks:
+        localhost:
+                name: inet
+
 services:
-  mariadb:
-    build: ../mariadb
-      # context:  /Users/abayar/Desktop/MyFolder/inception/srcs/requirements/wordpress
-      # image: Dockerfile
-    environment:
-      MYSQL_ROOT_PASSWORD: examplepassword
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-    volumes:
-      - mariadb_data:/var/lib/mysql
-  wordpress:
-    build: .
-      # context: .
-      # image: Dockerfile
-    environment:
-      WORDPRESS_DB_HOST: mariadb
-      WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-    ports:
-      - "80:80"
-    depends_on:
-      - mariab
-volumes:
-  mariadb_data:
+        mariadb:
+                container_name: "mariadb"
+                build: ./requirements/mariadb/
+                volumes:
+                        -  volume-mariadb:/var/lib/mysql/
+                restart: unless-stopped
+                networks:
+                        - localhost
+                env_file:
+                        - .env
+                ports:
+                        - "3306:3306"
+        nginx:
+             
+                container_name: nginx
+
+                build: ./requirements/nginx
+                image: nginx
+                volumes:
+                        - volume-wordpress:/var/www/wordpress/
+                ports:
+                        - "443:443"
+                networks:
+                        - localhost
+                restart: unless-stopped
+
+        wordpress:
+                container_name: "wordpress"
+                build: ./requirements/wordpress/
+                volumes:
+                        - volume-wordpress:/var/www/wordpress/
+                restart: unless-stopped
+                networks:
+                        - localhost
+                ports:
+                        - "9000:9000"
+                depends_on:
+                        - "mariadb"
+                env_file:
+                        - .env
+
+                        
+    
+# volumes:
+#   volume-mariadb:
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device:  /home/abayar/data/mariadb
+#   volume-wordpress:
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device:  /home/abayar/data/wordpress

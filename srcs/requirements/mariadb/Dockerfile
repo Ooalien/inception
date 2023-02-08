@@ -4,8 +4,10 @@ RUN apt-get update && apt-get install -y mariadb-server
 
 EXPOSE 3306
 
-RUN service mysql start
+COPY ./tools/script.sh .
 
-CMD ["mysqld"]
+COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# CMD ["sleep", "100"]
+RUN chmod +x script.sh
+
+CMD	["bash","script.sh"]
