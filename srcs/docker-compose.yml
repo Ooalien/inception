@@ -21,6 +21,8 @@ services:
             - "443:443"
         networks:
             - localhost
+        env_file:
+            - .env
         restart: unless-stopped
         depends_on:
             - "wordpress"
@@ -43,14 +45,14 @@ networks:
         driver: bridge
 volumes:
     volume-mariadb:
-        driver: local
-        driver_opts:
-            type: 'none'
-            o: 'bind'
-            device: ${PWD}/data/mariadb
+        # driver: local
+        # driver_opts:
+        #     type: 'none'
+        #     o: 'bind'
+        #     device: /home/abayar/data/mariadb
     volume-wordpress:
-        driver: local
-        driver_opts:
-            type: 'none'
-            o: bind
-            device: ${PWD}/data/wordpress
+        # driver: local
+        # driver_opts:
+        #     type: 'none'
+        #     o: bind
+        #     device: /home/abayar/data/wordpress
