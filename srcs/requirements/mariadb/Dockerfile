@@ -10,6 +10,7 @@ ARG MYSQL_PASSWORD="qwerty"
 EXPOSE 3306
 
 COPY ./tools/script .
+COPY ./tools/db.sql .
 
 COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 

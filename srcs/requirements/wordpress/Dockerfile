@@ -20,9 +20,12 @@ ARG MYSQL_USER="abayar"
 ARG MYSQL_PASSWORD="qwerty"
 ARG MYSQL_HOST="localhost"
 
+RUN mkdir /var/www/wordpress/wp-content/themes/inspiro
+
 COPY ./tools/wp-config.php .
 COPY ./tools/script.sh .
 COPY ./tools/www.conf /etc/php/7.3/fpm/pool.d
+COPY ./tools/inspiro /var/www/wordpress/wp-content/themes/inspiro/
 
 RUN wp core download --allow-root
 

@@ -40,6 +40,17 @@ services:
             - .env
         volumes:
             - volume-wordpress:/var/www/wordpress/
+    redis:
+        container_name: "redis"
+        build: ./requirements/bonus/redis/
+        restart: unless-stopped
+        networks:
+            - localhost
+        ports:
+            - "6379:6379"
+        depends_on:
+            - "wordpress"
+    
 networks:
     localhost:
         driver: bridge
