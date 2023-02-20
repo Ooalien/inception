@@ -46,10 +46,6 @@ services:
         restart: unless-stopped
         networks:
             - localhost
-        ports:
-            - "6379:6379"
-        depends_on:
-            - "wordpress"
     
 networks:
     localhost:

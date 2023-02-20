@@ -22,16 +22,15 @@ ARG MYSQL_HOST="localhost"
 
 RUN mkdir /var/www/wordpress/wp-content/themes/inspiro
 
-COPY ./tools/wp-config.php .
 COPY ./tools/script.sh .
 COPY ./tools/www.conf /etc/php/7.3/fpm/pool.d
 COPY ./tools/inspiro /var/www/wordpress/wp-content/themes/inspiro/
 
 RUN wp core download --allow-root
-
 RUN chmod 777 script.sh
-RUN mv wp-config.php /var/www/wordpress/
 
+RUN mv script.sh /var/www/wordpress/
+WORKDIR /var/www/wordpress/
 ENTRYPOINT ["bash", "script.sh"]
 
 CMD ["php-fpm7.3", "-R", "-F"]
