@@ -46,7 +46,15 @@ services:
         restart: unless-stopped
         networks:
             - localhost
-    
+    adminer:
+        build: ./requirements/bonus/adminer
+        container_name: adminer
+        image : adminer
+        depends_on:
+            - mariadb
+        restart: unless-stopped
+        networks:
+          - localhost
 networks:
     localhost:
         driver: bridge
