@@ -12,6 +12,7 @@ services:
             - "3306:3306"
         volumes:
             - volume-mariadb:/var/lib/mysql/
+        init: true
     nginx:
         container_name: nginx
         build: ./requirements/nginx
@@ -26,6 +27,7 @@ services:
         restart: unless-stopped
         depends_on:
             - "wordpress"
+        init: true
     wordpress:
         container_name: "wordpress"
         build: ./requirements/wordpress/
@@ -40,21 +42,44 @@ services:
             - .env
         volumes:
             - volume-wordpress:/var/www/wordpress/
+        init: true
     redis:
         container_name: "redis"
         build: ./requirements/bonus/redis/
         restart: unless-stopped
         networks:
             - localhost
+        init: true
     adminer:
         build: ./requirements/bonus/adminer
         container_name: adminer
         image : adminer
         depends_on:
             - mariadb
+            - wordpress
         restart: unless-stopped
         networks:
           - localhost
+        environment:
+            ADMINER_DEFAULT_SERVER: mariadb
+        volumes:
+            - volume-wordpress:/var/www/html/
+        init: true
+    ftp:
+        build: ./requirements/bonus/ftp-server
+        container_name: ftp
+        image : ftp
+        depends_on:
+            - wordpress
+        restart: unless-stopped
+        networks:
+          - localhost
+        ports:
+            - "21:21"
+            - "40000-40010:40000-40010"
+        volumes:
+            - volume-wordpress:/home/ali/wordpress
+        init: true
 networks:
     localhost:
         driver: bridge

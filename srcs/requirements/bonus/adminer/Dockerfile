@@ -1,11 +1,15 @@
 FROM debian:buster
 
 RUN apt-get update \
-    && apt-get install -y wget php  php-mysql mariadb-client \
-    && mkdir -p /var/www/html/adminer/ \
-    && wget "http://www.adminer.org/latest.php" -O /var/www/html/adminer/index.php \
-    && mkdir /run/php/
+    && apt-get install -y wget php adminer php-mysql mariadb-client 
 
-WORKDIR /var/www/html/adminer/
+
+COPY ./tools/entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
+WORKDIR /var/www/html/
+
+ENTRYPOINT ["/entrypoint.sh"]
+
 
 CMD php -S 0.0.0.0:9999
