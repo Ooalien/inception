@@ -55,13 +55,13 @@ services:
         container_name: adminer
         image : adminer
         depends_on:
-            - mariadb
+            # - mariadb
             - wordpress
         restart: unless-stopped
         networks:
           - localhost
-        environment:
-            ADMINER_DEFAULT_SERVER: mariadb
+        # environment:
+        #     ADMINER_DEFAULT_SERVER: ll
         volumes:
             - volume-wordpress:/var/www/html/
         init: true
@@ -80,6 +80,17 @@ services:
         volumes:
             - volume-wordpress:/home/ali/wordpress
         init: true
+    portainer:
+        build: ./requirements/bonus/portainer
+        container_name: portainer
+        image : portainer
+        restart: 'always'
+        volumes: 
+          - volume-portainer:/data
+          - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+          - localhost
+        init: true
 networks:
     localhost:
         driver: bridge
@@ -96,3 +107,9 @@ volumes:
         #     type: 'none'
         #     o: bind
         #     device: /home/abayar/data/wordpress
+    volume-portainer:
+        # driver: local
+        # driver_opts:
+        #   type: none
+        #   device: /home/abayar/data/portainer
+        #   o: bind

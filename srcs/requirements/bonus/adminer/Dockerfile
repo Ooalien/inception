@@ -1,7 +1,7 @@
 FROM debian:buster
 
 RUN apt-get update \
-    && apt-get install -y wget php adminer php-mysql mariadb-client 
+    && apt-get install -y wget php php-mysql
 
 
 COPY ./tools/entrypoint.sh /entrypoint.sh
