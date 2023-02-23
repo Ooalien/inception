@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>portfolio Website template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<style type="text/css">
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'Jost', sans-serif;
+    transition: 0.5s;
+    overflow: hidden;
+}
+body
+{
+    margin: 0;
+    padding: 0;
+    background-image: url("bg.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover; 
+    background-size: cover;
+}
+
+header
+{
+    width: 100%;
+    height: 100vh;
+}
+
+nav
+{
+    width: 1200px;
+    height: 80px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav .logo
+{
+    color: #ffffff;
+    font-size: 30px;
+    cursor: pointer;
+}
+nav ul
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+nav ul li
+{
+    margin-right: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #686485;
+    font-weight: 500;
+}
+nav ul li:hover
+{
+    color: #000000;
+}
+.active
+{
+    color: #ffffff;
+}
+.container
+{
+    width: 1200px;
+    height: auto;
+    margin: auto;
+    display: flex;
+    padding-top: 50px;
+}
+.container h4
+{
+    padding-top: 100px;
+    color: #ffffff;
+}
+.container h1
+{
+    font-size: 60px;
+    color: #ffffff;
+    font-weight: 400;
+}
+.container span
+{
+    font-weight: 700;
+}
+.container p
+{
+    color: #ffffff;
+    line-height: 30px;
+    padding-top: 20px;
+    font-size: 19px;
+}
+.btn
+{
+    width: 120px;
+    height: 50px;
+    border: none;
+    background: #c6c6c6;
+    color: #000000;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+.btn2
+{
+    width: 120px;
+    height: 50px;
+    border: 1px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+.btn2:hover
+{
+    background: #ffffff;
+    color: #050404;
+}
+
+</style>
+
+    <body>
+        <header>
+            <nav>
+                <h1 class="logo">42 Project</h1>
+                <ul>
+                <li class="active">Home</li>
+                </ul>
+            </nav>
+            <div class="container">
+                <div class="content">
+                    <h4>HELLO</h4>
+                    <h1>I'm <span>abayar</span><br> This is a simple page for my inception project :-)</h1>
+                    <p>I am A Developer from 1337 school<br>
+                    And this is another web page from scratch<br>
+                    Hope you like it.</p>
+                    <button class="btn2">Hire me</button>
+                    <button class="btn2">Portfolio</button>
+            </div>
+        </header>
+    </body>
+</html>
