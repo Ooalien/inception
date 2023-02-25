@@ -1,8 +1,10 @@
 FROM debian:buster
 
 RUN apt-get update
+RUN mkdir -p /var/www/portfolio
 
-RUN mkdir -p /var/www/wordpress
+COPY /tools/* /var/www/portfolio
 
-COPY /tools/ /var/www/wordpress/
+RUN chown -R www-data /var/www/portfolio
+
 

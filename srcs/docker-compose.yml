@@ -5,7 +5,7 @@ services:
         build: ./requirements/mariadb/
         restart: unless-stopped
         networks:
-            - localhost
+            - net
         env_file:
             - .env
         ports:
@@ -18,10 +18,11 @@ services:
         build: ./requirements/nginx
         volumes:
             - volume-wordpress:/var/www/wordpress/
+            - volume-portfolio:/var/www/portfolio/
         ports:
             - "443:443"
         networks:
-            - localhost
+            - net
         env_file:
             - .env
         restart: unless-stopped
@@ -33,7 +34,7 @@ services:
         build: ./requirements/wordpress/
         restart: unless-stopped
         networks:
-            - localhost
+            - net
         ports:
             - "9000:9000"
         depends_on:
@@ -48,7 +49,7 @@ services:
         build: ./requirements/bonus/redis/
         restart: unless-stopped
         networks:
-            - localhost
+            - net
         init: true
     adminer:
         build: ./requirements/bonus/adminer
@@ -59,7 +60,7 @@ services:
             - wordpress
         restart: unless-stopped
         networks:
-          - localhost
+          - net
         # environment:
         #     ADMINER_DEFAULT_SERVER: ll
         volumes:
@@ -73,7 +74,7 @@ services:
             - wordpress
         restart: unless-stopped
         networks:
-          - localhost
+          - net
         ports:
             - "21:21"
             - "40000-40010:40000-40010"
@@ -89,10 +90,21 @@ services:
           - volume-portainer:/data
           - /var/run/docker.sock:/var/run/docker.sock
         networks:
-          - localhost
+          - net
+        init: true
+    portfolio:
+        build: ./requirements/bonus/portfolio
+        container_name: portfolio
+        image : portfolio
+        depends_on:
+            - wordpress
+        volumes: 
+          - volume-portfolio:/var/www/portfolio/
+        networks:
+          - net
         init: true
 networks:
-    localhost:
+    net:
         driver: bridge
 volumes:
     volume-mariadb:
@@ -108,6 +120,12 @@ volumes:
         #     o: bind
         #     device: /home/abayar/data/wordpress
     volume-portainer:
+        # driver: local
+        # driver_opts:
+        #   type: none
+        #   device: /home/abayar/data/portainer
+        #   o: bind
+    volume-portfolio:
         # driver: local
         # driver_opts:
         #   type: none
