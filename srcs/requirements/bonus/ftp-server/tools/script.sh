@@ -6,7 +6,7 @@ echo "ali:1234" | chpasswd
 usermod -aG www-data ali
 
 mkdir -p /home/ali/empty
-mkdir -p /home/ali/wordpress
+# mkdir -p /home/ali/wordpress
 chown ali:ali /home/ali/wordpress
 chown ali:ali /home/ali/empty
 

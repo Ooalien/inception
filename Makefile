@@ -9,7 +9,7 @@ v:
 	@docker-compose -f srcs/docker-compose.yml down -v
 
 i:
-	@docker-system prune -a
+	@docker system prune -a
 
 clean : 
 

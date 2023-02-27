@@ -56,13 +56,10 @@ services:
         container_name: adminer
         image : adminer
         depends_on:
-            # - mariadb
             - wordpress
         restart: unless-stopped
         networks:
           - net
-        # environment:
-        #     ADMINER_DEFAULT_SERVER: ll
         volumes:
             - volume-wordpress:/var/www/html/
         init: true
@@ -97,7 +94,7 @@ services:
         container_name: portfolio
         image : portfolio
         depends_on:
-            - wordpress
+          - wordpress
         volumes: 
           - volume-portfolio:/var/www/portfolio/
         networks:
@@ -108,26 +105,26 @@ networks:
         driver: bridge
 volumes:
     volume-mariadb:
-        # driver: local
-        # driver_opts:
-        #     type: 'none'
-        #     o: 'bind'
-        #     device: /home/abayar/data/mariadb
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: /home/abayar/data/mariadb
     volume-wordpress:
-        # driver: local
-        # driver_opts:
-        #     type: 'none'
-        #     o: bind
-        #     device: /home/abayar/data/wordpress
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: bind
+            device: /home/abayar/data/wordpress
     volume-portainer:
-        # driver: local
-        # driver_opts:
-        #   type: none
-        #   device: /home/abayar/data/portainer
-        #   o: bind
+        driver: local
+        driver_opts:
+          type: none
+          device: /home/abayar/data/portainer
+          o: bind
     volume-portfolio:
-        # driver: local
-        # driver_opts:
-        #   type: none
-        #   device: /home/abayar/data/portainer
-        #   o: bind
+        driver: local
+        driver_opts:
+          type: none
+          device: /home/abayar/data/portfolio
+          o: bind
